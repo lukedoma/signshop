@@ -1,4 +1,4 @@
-# Django Project Boilerplate
+
 
 This repository is an Online Sign Shop
 
