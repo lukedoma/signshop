@@ -42,7 +42,7 @@ jmespath==0.9.3
 lazy-object-proxy==1.4.3
 lessc==0.1.2
 Mako==1.0.7
-MarkupSafe==1.0
+# MarkupSafe==1.0
 mccabe==0.6.1
 npm==0.1.1
 oauthlib==3.1.0
