@@ -36,9 +36,9 @@ itsdangerous==0.24
 jedi==0.15.1
 Jinja2==2.10
 jmespath==0.9.3
-Kivy==1.10.0
-kivy-designer==0.1.dev0
-Kivy-Garden==0.1.4
+# Kivy==1.10.0
+# kivy-designer==0.1.dev0
+# Kivy-Garden==0.1.4
 lazy-object-proxy==1.4.3
 lessc==0.1.2
 Mako==1.0.7
