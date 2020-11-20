@@ -1,4 +1,5 @@
 import os
+# from decouple import config
 
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
@@ -94,6 +95,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # STRIPE_PUBLIC_KEY = config('STRIPE_TEST_PUBLIC_KEY')
 # STRIPE_SECRET_KEY = config('STRIPE_TEST_SECRET_KEY')
+STRIPE_PUBLIC_KEY = 'pk_test_51HnjMQIkK8JL3mnjiTxcTDcyWr45SVWvQM15URUC8WovolQavUvLlsfdS6eBHwOcRmZkHmENH10VJCVL9BE1Ko5I00ojDJ5SnA'
+STRIPE_SECRET_KEY = 'sk_test_51HnjMQIkK8JL3mnjTw57LaWsXlbtvE3c7J1n777NPflVKHg3D9eTOmYXIhKgmcHe9UdcsM54KKXTQQlmHhJrblFk00STmBjz1O'
 
 if ENVIRONMENT == 'production':
     DEBUG = False
