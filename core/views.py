@@ -4,7 +4,7 @@ from django.template import RequestContext
 
 from django.template import RequestContext
 import string
-import simplejson
+# import simplejson
 import json
 from django.urls import reverse
 from django.shortcuts import render
