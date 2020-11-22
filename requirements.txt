@@ -72,7 +72,7 @@ smmap2==2.0.5
 sorl-thumbnail==12.5.0
 SQLAlchemy==1.1.15
 sqlparse==0.2.4
-stripe==2.24.0
+# stripe==2.24.0
 toml==0.10.2
 typed-ast==1.4.1
 tzlocal==1.5.1
