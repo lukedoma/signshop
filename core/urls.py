@@ -1,4 +1,8 @@
-from django.urls import path
+from django.urls import path,reverse
+from django.conf.urls import url
+from django.views.generic import RedirectView
+
+from django.views.decorators.csrf import csrf_exempt
 from .views import (
     ItemDetailView,
     CheckoutView,
@@ -9,7 +13,10 @@ from .views import (
     remove_single_item_from_cart,
     PaymentView,
     AddCouponView,
-    RequestRefundView
+    RequestRefundView,
+    PaypalView,
+    PaypalSuccess,
+    paymentComplete
 )
 
 app_name = 'core'
@@ -25,8 +32,13 @@ urlpatterns = [
     path('remove_from_cart/<slug>', remove_from_cart, name='remove_from_cart'),
     path('remove-single-item-from-cart/<slug>',
          remove_single_item_from_cart, name='remove-single-item-from-cart'),
-    path('payment/<payment_option>', PaymentView.as_view(), name='payment'),
+    path('payment/<payment_option>', PaypalView.as_view(), name='paypal'),
+    path('payment/<payment_option2>', PaypalView.as_view(), name='paypal'),
     path('add-coupon/', AddCouponView.as_view(), name='add-coupon'),
-    path('request-refund/', RequestRefundView.as_view(), name='request-refund')
+    path('request-refund/', RequestRefundView.as_view(), name='request-refund'),
+    path('paypal-success/(?P<order_id>\d+)/', csrf_exempt(PaypalSuccess.as_view()), name='paypal-success'),
+    path('complete/',paymentComplete, name="complete"),
+    # url(r'^paypal-success/$', csrf_exempt(PaypalSuccess.as_view()), name='paypal-success'),
+    
 
 ]

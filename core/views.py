@@ -1,6 +1,22 @@
 import random
-import string
+from django.template import RequestContext
 
+
+from django.template import RequestContext
+import string
+import simplejson
+import json
+from django.urls import reverse
+from django.shortcuts import render
+import requests 
+import urllib.parse as urlparse
+from urllib.parse import parse_qs
+from django.http import HttpResponse
+from django.http import JsonResponse
+import urllib.request
+from django.core.serializers.json import DjangoJSONEncoder
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.clickjacking import xframe_options_exempt
 import stripe
 from django.conf import settings
 from django.contrib import messages
@@ -9,21 +25,26 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
-from .models import Item, Order, OrderItem, Address, Coupon,Refund
+from .models import Item, Order, OrderItem, Address, Coupon,Refund,Payment
 from django.utils import timezone
 from .forms import CheckoutForm, CouponForm,RefundForm
 from django.shortcuts import redirect
-
+from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
+from paypalcheckoutsdk.orders import OrdersCreateRequest
+from paypalhttp import HttpError
+from itertools import accumulate as _accumulate, repeat as _repeat
+from bisect import bisect as _bisect
 # Create your views here.
 stripe.api_key = 'sk_test_51HnjMQIkK8JL3mnjTw57LaWsXlbtvE3c7J1n777NPflVKHg3D9eTOmYXIhKgmcHe9UdcsM54KKXTQQlmHhJrblFk00STmBjz1O'
 
 def create_ref_code():
-    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
+    return ''.join(random.choice(string.ascii_lowercase + string.digits))
 def item_list(request):
     context = {
         'items': Item.objects.all()
     }
     return render(request, "product.html", context)
+
 
 
 def is_valid_form(values):
@@ -189,11 +210,12 @@ class CheckoutView(View):
                             self.request, "Please fill in the required billing address fields")
 
                 payment_option = form.cleaned_data.get('payment_option')
+                # payment_option2 = form.cleaned_data.get('payment_option2')
 
                 if payment_option == 'S':
                     return redirect('core:payment', payment_option='stripe')
                 elif payment_option == 'P':
-                    return redirect('core:payment', payment_option='paypal')
+                    return redirect('core:paypal', payment_option='paypal')
                 else:
                     messages.warning(
                         self.request, "Invalid payment option selected")
@@ -521,3 +543,77 @@ class RequestRefundView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "This order does not exist.")
                 return redirect("core:request-refund")
+
+class PaypalView(View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            # self.context['order']= order
+            # context2 = RequestContext(self.request)
+            form = CheckoutForm()
+            context = {
+                'form': form,
+                'couponform': CouponForm(),
+                'order': order,
+                'DISPLAY_COUPON_FORM': True
+            }
+            return render(self.request, "paypal.html", context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have an active order")
+            return redirect("core:checkout")
+        
+        
+
+class PaypalSuccess(View):
+    template_name='paypal_sucess.html'
+    context={}
+
+    @xframe_options_exempt
+    def get(self,request,*args,**kwargs):
+        # return render(self.request, "paypal_sucess.html", context)
+        try:
+            
+            # order = Order.objects.get(user=self.request.user, ordered=False)
+            order = Order.objects.get(id=self.kwargs.get('order_id',None))
+                # order = Order.objects.get(id=body['productId'])
+            payment = Payment()
+            # payment.stripe_charge_id = charge['id']
+            payment.user = self.request.user
+            payment.amount = order.get_total()
+            payment.save()
+            
+            # assign the payment to the order
+            order_items = order.items.all()
+            order_items.update(ordered=True)
+            for item in order_items:
+                item.save()
+            order.ordered = True
+            order.payment = payment
+            order.ref_code = create_ref_code()
+            order.save()
+            messages.info(self.request, "Payment is a success")
+            # context2 = RequestContext(request)
+            form = CheckoutForm()
+            context = {
+                'form': form,
+                'couponform': CouponForm(),
+                'order': order,
+                'DISPLAY_COUPON_FORM': True
+            }
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have an active order")
+            return redirect("core:checkout")
+        return render(self.request, "paypal_sucess.html", self.context)
+        
+
+
+def paymentComplete(request):
+    # body = json.loads(request.body)
+    # print('BODY:', body)
+    body_unicode = request.body.decode('utf-8')
+    body_data = json.loads(body_unicode)
+    order = Order.objects.get(id=body_data['productId'])
+    # order = Order.objects.get(id=body['productId'])
+    
+    return HttpResponse(JsonResponse({'payment_link': (reverse('core:paypal-success', args=[order.id]))} ), content_type="application/json") 
+    # return JsonResponse('Payment completed!', safe=False)

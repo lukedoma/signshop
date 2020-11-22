@@ -1,5 +1,7 @@
 import os
 # from decouple import config
+import paypalrestsdk
+from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
 
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
@@ -59,6 +61,16 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+# Creating Access Token for Sandbox
+client_id = "AXXcMRWtb1jd0IamK8OUX1Ww43lN-d0n_TK3GUpjmoyOSRirmY8k7Yc6RwvbvlZF0q0YPWYqhpRn9Y3D"
+client_secret = "EBRZkNTv8WBydmmIPfgtrkEgEUHv_td7j92LHtutj0KhyGt2OijIhoX54b9P-NP91TNks_pZ_sB3kOqF"
+# Creating an environment
+environment = SandboxEnvironment(client_id=client_id, client_secret=client_secret)
+client = PayPalHttpClient(environment)
+paypalrestsdk.configure({
+  "mode": "sandbox", # sandbox or live
+  "client_id": "AXXcMRWtb1jd0IamK8OUX1Ww43lN-d0n_TK3GUpjmoyOSRirmY8k7Yc6RwvbvlZF0q0YPWYqhpRn9Y3D",
+  "client_secret": "EBRZkNTv8WBydmmIPfgtrkEgEUHv_td7j92LHtutj0KhyGt2OijIhoX54b9P-NP91TNks_pZ_sB3kOqF" })
 
 # STATIC_URL = '/static/'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
