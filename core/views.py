@@ -29,9 +29,9 @@ from .models import Item, Order, OrderItem, Address, Coupon,Refund,Payment
 from django.utils import timezone
 from .forms import CheckoutForm, CouponForm,RefundForm
 from django.shortcuts import redirect
-from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
-from paypalcheckoutsdk.orders import OrdersCreateRequest
-from paypalhttp import HttpError
+# from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
+# from paypalcheckoutsdk.orders import OrdersCreateRequest
+# from paypalhttp import HttpError
 from itertools import accumulate as _accumulate, repeat as _repeat
 from bisect import bisect as _bisect
 # Create your views here.
