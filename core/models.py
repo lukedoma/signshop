@@ -7,7 +7,7 @@ from django_countries.fields import CountryField
 # from ckeditor.fields import RichTextField, RichTextUploadingField
 # from ckeditor_uploader.fields import  RichTextUploadingField
 
-class ModelClass:
+# class ModelClass:
     ## content = models.TextField()
 #     content = RichTextUploadingField()
 
