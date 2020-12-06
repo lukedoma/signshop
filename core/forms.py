@@ -62,4 +62,4 @@ class ContactForm(forms.Form):
     name = forms.CharField(required=False)
     email = forms.CharField(required=False)
     subject = forms.CharField(required=False)
-    message = forms.CharField(required=False)
+    message = forms.CharField(widget=forms.Textarea)

@@ -14,9 +14,12 @@ class ModelClass:
 
 # Create your models here.
 CATEGORY_CHOICES = (
-    ('S', 'Shirt'),
-    ('SW', 'Sport wear'),
-    ('OW', 'Outwear')
+    ('F', 'FASTENERS'),
+    ('S', 'SIGNS'),
+    ('C', 'CUTTING'),
+    ('D', 'DRILLING'),
+    ('A', 'ADHESIVE'),
+    ('T', 'TOOLS'),
 )
 
 ARTICLE_CHOICES = (
