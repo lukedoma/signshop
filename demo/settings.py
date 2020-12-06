@@ -117,16 +117,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # STRIPE_PUBLIC_KEY = 'pk_test_51HnjMQIkK8JL3mnjiTxcTDcyWr45SVWvQM15URUC8WovolQavUvLlsfdS6eBHwOcRmZkHmENH10VJCVL9BE1Ko5I00ojDJ5SnA'
 # STRIPE_SECRET_KEY = 'sk_test_51HnjMQIkK8JL3mnjTw57LaWsXlbtvE3c7J1n777NPflVKHg3D9eTOmYXIhKgmcHe9UdcsM54KKXTQQlmHhJrblFk00STmBjz1O'
 
-# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
-# CKEDITOR_UPLOAD_PATH = 'uploads/'
-# CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': None,
-#     },
-# }
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
 if ENVIRONMENT == 'production':
     DEBUG = False
     SECRET_KEY = os.getenv('SECRET_KEY')
