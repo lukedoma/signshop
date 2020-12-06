@@ -19,7 +19,7 @@ CATEGORY_CHOICES = (
     ('C', 'CUTTING'),
     ('D', 'DRILLING'),
     ('A', 'ADHESIVE'),
-    ('T', 'TOOLS'),
+    ('T', 'TOOLS')
 )
 
 ARTICLE_CHOICES = (
