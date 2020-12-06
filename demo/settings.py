@@ -98,7 +98,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
 ####################################
     ##  CKEDITOR CONFIGURATION ##
 ####################################
@@ -115,7 +114,6 @@ CKEDITOR_CONFIGS = {
 }
 
 ###################################
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
