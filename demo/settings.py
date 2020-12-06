@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'ckeditor',
+    'ckeditor_uploader',
     'core'
 ]
 
@@ -97,6 +98,22 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
+####################################
+    ##  CKEDITOR CONFIGURATION ##
+####################################
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
+
+###################################
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
