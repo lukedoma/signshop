@@ -9,7 +9,7 @@ from django_countries.fields import CountryField
 
 class ModelClass:
     ## content = models.TextField()
-    content = RichTextUploadingField()
+#     content = RichTextUploadingField()
 
 
 # Create your models here.
