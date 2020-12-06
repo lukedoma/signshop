@@ -4,12 +4,12 @@ from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
-# from ckeditor.fields import RichTextField, RichTextUploadingField
-# from ckeditor_uploader.fields import  RichTextUploadingField
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import  RichTextUploadingField
 
-# class ModelClass:
-    ## content = models.TextField()
-#     content = RichTextUploadingField()
+class ModelClass:
+    # content = models.TextField()
+    content = RichTextUploadingField()
 
 
 # Create your models here.
@@ -78,7 +78,7 @@ class Articles(models.Model):
     article_category = models.CharField(choices=ARTICLE_CHOICES, max_length=2)
     article_slug = models.SlugField()
     # article_body = RichTextField(blank=True,null=True,default="")
-#     article_body = RichTextUploadingField(blank=True,null=True,default="")
+    article_body = RichTextUploadingField(blank=True,null=True,default="")
     article_image = models.ImageField(blank=True , null= True)
     article_author = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, blank=True, null=True)
@@ -194,7 +194,7 @@ class Contact(models.Model):
     contact_name = models.CharField(max_length=150)
     contact_email = models.CharField(max_length=150)
     contact_subject = models.CharField(max_length=150)
-#     contact_message = RichTextUploadingField(blank=True,null=True,default="")
+    contact_message = RichTextUploadingField(blank=True,null=True,default="")
     
     
     def __str__(self):
