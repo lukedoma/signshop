@@ -715,11 +715,13 @@ class NewssingleView(View):
     context={}
     def get(self, *args, **kwargs):
         try:
-            news = Articles.objects.filter(article_category='N')
+            slug = kwargs.get.('article_slug')
+            news_item = get_object_or_404(Articles, article_slug=slug)
+            # news = Articles.objects.get(article_slug=)
             
             context = {
                 
-                'news': news,
+                'news_item': news_item,
                 
             }
             return render(self.request, "news_single.html", context)
