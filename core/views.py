@@ -708,16 +708,16 @@ class NewsView(View):
             return render(self.request, "news.html", context)
         except ObjectDoesNotExist:
             messages.info(self.request, "You do not have any news article")
-            return redirect("core:home")
+            return redirect("core:news")
 
 class NewssingleView(View):
     template_name='news_single.html'
     context={}
     def get(self, *args, **kwargs):
         try:
-            slug = kwargs.get.('article_slug')
-            news_item = get_object_or_404(Articles, article_slug=slug)
-            # news = Articles.objects.get(article_slug=)
+            slug = kwargs.get('article_slug')
+            # news_item = get_object_or_404(Articles, article_slug=slug)
+            news_item = Articles.objects.get(article_slug=slug)
             
             context = {
                 

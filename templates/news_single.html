@@ -5,17 +5,17 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         
         <div class="post-preview">
-          <a href="post.html">
+          
             <h2 class="post-title">
-              {{nws.article_title|safe}}
+              {{news_item.article_title|safe}}
             </h2>
             <p class="post-meta">
-                {{nws.article_body|safe}}
+                {{news_item.article_body|safe}}
             </p>
-          </a>
+         
           <p class="post-meta">Posted by
-            <a href="#">{{nws.article_author|safe}}</a>
-            {{nws.article_pub_date|date:"M d, Y" |safe}}</p>
+            <a href="#">{{news_item.article_author|safe}}</a>
+            {{news_item.article_pub_date|date:"M d, Y" |safe}}</p>
         </div>
       
        <hr>
