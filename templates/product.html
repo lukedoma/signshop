@@ -11,8 +11,8 @@
       <!--Grid column-->
       <div class="col-md-6 mb-4">
 
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" class="img-fluid" alt="">
-
+        <!-- <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" class="img-fluid" alt=""> -->
+        <img src="{{ item.image.url }}" class="img-fluid" alt="">
       </div>
       <!--Grid column-->
 
@@ -24,7 +24,9 @@
 
           <div class="mb-3">
             <a href="">
-              <span class="badge purple mr-1">{{ object.get_category_display }}</span>
+              <!-- <span class="badge purple mr-1">{{ object.title }}</span> -->
+              <p class="lead font-weight-bold">{{ object.title }}</p>
+              <span class="badge purple mr-1">{{ object.stock_code }}</span> 
             </a>
           </div>
 
@@ -95,24 +97,24 @@
       <!--Grid column-->
       <div class="col-lg-4 col-md-12 mb-4">
 
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
-
+        <!-- <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt=""> -->
+        <img src="{{ item.image.url }}" class="img-fluid" alt="">
       </div>
       <!--Grid column-->
 
       <!--Grid column-->
       <div class="col-lg-4 col-md-6 mb-4">
 
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
-
+        <!-- <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt=""> -->
+        <img src="{{ item.image.url }}" class="img-fluid" alt="">
       </div>
       <!--Grid column-->
 
       <!--Grid column-->
       <div class="col-lg-4 col-md-6 mb-4">
 
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
-
+        <!-- <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt=""> -->
+        <img src="{{ item.image.url }}" class="img-fluid" alt="">
       </div>
       <!--Grid column-->
 

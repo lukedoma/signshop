@@ -57,3 +57,9 @@ class PaymentForm(forms.Form):
     stripeToken = forms.CharField(required=False)
     save = forms.BooleanField(required=False)
     use_default = forms.BooleanField(required=False)
+
+class ContactForm(forms.Form):
+    name = forms.CharField(required=False)
+    email = forms.CharField(required=False)
+    subject = forms.CharField(required=False)
+    message = forms.CharField(required=False)

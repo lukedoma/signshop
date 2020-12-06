@@ -25,15 +25,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
-from .models import Item, Order, OrderItem, Address, Coupon,Refund,Payment
+from .models import Item, Order,Contact,Articles, OrderItem, Address, Coupon,Refund,Payment
 from django.utils import timezone
-from .forms import CheckoutForm, CouponForm,RefundForm
+from .forms import CheckoutForm,ContactForm, CouponForm,RefundForm
 from django.shortcuts import redirect
 # from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
 # from paypalcheckoutsdk.orders import OrdersCreateRequest
 # from paypalhttp import HttpError
 from itertools import accumulate as _accumulate, repeat as _repeat
 from bisect import bisect as _bisect
+from django.db.models import Q 
 # Create your views here.
 # stripe.api_key = 'sk_test_51HnjMQIkK8JL3mnjTw57LaWsXlbtvE3c7J1n777NPflVKHg3D9eTOmYXIhKgmcHe9UdcsM54KKXTQQlmHhJrblFk00STmBjz1O'
 
@@ -53,6 +54,7 @@ def is_valid_form(values):
         if field == '':
             valid = False
     return valid
+
 
 
 class CheckoutView(View):
@@ -227,8 +229,18 @@ class CheckoutView(View):
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 10
+    paginate_by = 9
     template_name = "home.html"
+
+def search(request):
+    template_name = 'search.html'
+    query = request.POST.get('query','')
+    if query:
+        results = Item.objects.filter(Q(title__icontains = query)).distinct()
+    else:
+        results=[]
+    return render(request,template_name,{'results':results})
+
 
 
 class OrderSummaryView(LoginRequiredMixin, View):
@@ -617,3 +629,100 @@ def paymentComplete(request):
     
     return HttpResponse(JsonResponse({'payment_link': (reverse('core:paypal-success', args=[order.id]))} ), content_type="application/json") 
     # return JsonResponse('Payment completed!', safe=False)
+class AboutusView(View):
+    template_name='about_us.html'
+    context={}
+    def get(self, *args, **kwargs):
+        try:
+            about_us = Articles.objects.get(article_category='A')
+            
+            context = {
+                
+                'about_us': about_us,
+                
+            }
+            return render(self.request, "about_us.html", context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have any about us article")
+            return redirect("core:home")
+
+class ContactView(View):
+    template_name='contactus.html'
+    context={}
+    def get(self, *args, **kwargs):
+        form = ContactForm()
+        context = {
+            'form': form
+        }
+        return render(self.request, "contactus.html", context)
+    # def get(self, *args, **kwargs):
+    #     try:
+    #         contact_us = Articles.objects.get(article_category='C')
+            
+    #         context = {
+                
+    #             'contact_us': contact_us,
+                
+    #         }
+    #         return render(self.request, "contactus.html", context)
+    #     except ObjectDoesNotExist:
+    #         messages.info(self.request, "You do not have any contact us article")
+    #         return redirect("core:home")
+    
+    def post(self, *args, **kwargs):
+        form = ContactForm(self.request.POST)
+        if form.is_valid():
+            c_name = form.cleaned_data.get('name')
+            c_email = form.cleaned_data.get('email')
+            c_subject = form.cleaned_data.get('subject')
+            c_message = form.cleaned_data.get('message')
+            # edit the order
+            try:
+                # store the refund
+                contact = Contact()
+                contact.contact_name = c_name
+                contact.contact_email = c_email
+                contact.contact_subject = c_subject
+                contact.contact_message = c_message
+                contact.save()
+
+                messages.info(self.request, "Your request was sent.")
+                return redirect("core:contact_us")
+
+            except ObjectDoesNotExist:
+                messages.info(self.request, "Seems to be an error in sending your request.")
+                return redirect("core:contact_us")
+
+class NewsView(View):
+    template_name='news.html'
+    context={}
+    def get(self, *args, **kwargs):
+        try:
+            news = Articles.objects.filter(article_category='N')
+            
+            context = {
+                
+                'news': news,
+                
+            }
+            return render(self.request, "news.html", context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have any news article")
+            return redirect("core:home")
+
+class NewssingleView(View):
+    template_name='news_single.html'
+    context={}
+    def get(self, *args, **kwargs):
+        try:
+            news = Articles.objects.filter(article_category='N')
+            
+            context = {
+                
+                'news': news,
+                
+            }
+            return render(self.request, "news_single.html", context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have any news article")
+            return redirect("core:home")

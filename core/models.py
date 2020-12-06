@@ -4,12 +4,21 @@ from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 CATEGORY_CHOICES = (
     ('S', 'Shirt'),
     ('SW', 'Sport wear'),
     ('OW', 'Outwear')
+)
+
+ARTICLE_CHOICES = (
+    ('A', 'About_us'),
+    ('N', 'News'),
+    ('E', 'Events'),
+    ('C', 'Contact'),
+    ('S', 'Sitemap')
 )
 
 LABEL_CHOICES = (
@@ -25,6 +34,7 @@ ADDRESS_CHOICES = (
 
 class Item(models.Model):
     title = models.CharField(max_length=100)
+    stock_code = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
@@ -51,7 +61,21 @@ class Item(models.Model):
             'slug': self.slug
         })
 
+    # def search(self):
+    #     return reverse("core:search")
 
+class Articles(models.Model):
+    article_title = models.CharField(max_length=100)
+    article_category = models.CharField(choices=ARTICLE_CHOICES, max_length=2)
+    article_slug = models.SlugField()
+    article_body = RichTextField(blank=True,null=True,default="")
+    article_image = models.ImageField(blank=True , null= True)
+    article_author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE, blank=True, null=True)
+    article_pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.article_title
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, blank=True, null=True)
@@ -153,3 +177,15 @@ class Refund(models.Model):
 
     def __str__(self):
         return self.pk
+
+
+
+class Contact(models.Model):
+    contact_name = models.CharField(max_length=150)
+    contact_email = models.CharField(max_length=150)
+    contact_subject = models.CharField(max_length=150)
+    contact_message = RichTextField(blank=True,null=True,default="")
+    
+    
+    def __str__(self):
+        return self.contact_name

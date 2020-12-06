@@ -1,0 +1,117 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+{% if results %}
+<div>
+  <h1 class="sub-section" style="margin-left: 32%;"><strong>Your Search Results <br/><br/></strong> </h1>
+</div>
+<div class="div-block-11">
+  <div class="w-layout-grid grid">
+    {% for item in results %}
+     <div class="div-block-10">
+        <!-- <img src="{% static 'img/5fc63512a881e955921010e4_Capture3.PNG' %}" loading="lazy" alt=""/> -->
+        <a href="{{ item.get_absolute_url }}">
+        <img src="{{ item.image.url }}" class="card-img-top">
+        </a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+        <a href="{{item.get_absolute_url}}">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+        
+        
+        <div class="text-block"><a href="{{ item.get_absolute_url }}" >{{ item.title }}<br/>Stock Code: {{ item.stock_code }}</a><br/>
+          
+            <!-- <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span> -->
+          </a>
+        </div>
+        <!-- <strong>$
+          {% if item.discount_price %}
+          {{ item.discount_price }}
+          {% else %}
+          {{ item.price }}
+          {% endif %} -->
+        </strong>
+     </div>
+     {% endfor %}
+     {% if is_paginated %}
+     <nav class="d-flex justify-content-center wow fadeIn">
+       <ul class="pagination pg-blue">
+ 
+         {% if page_obj.has_previous %}
+         <li class="page-item">
+           <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+             <span aria-hidden="true">&laquo;</span>
+             <span class="sr-only">Previous</span>
+           </a>
+         </li>
+         {% endif %}
+ 
+         <li class="page-item active">
+           <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+             <span class="sr-only">(current)</span>
+           </a>
+         </li>
+ 
+         {% if page_obj.has_next %}
+         <li class="page-item">
+           <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+             <span aria-hidden="true">&raquo;</span>
+             <span class="sr-only">Next</span>
+           </a>
+         </li>
+         {% endif %}
+       </ul>
+     </nav>
+     {% endif %}
+
+  </div>
+</div>
+{% else %}
+<div>
+    <h1 class="sub-section" style="margin-left: 32%;"><strong>We could not find any items in our inventory with your search query <br/><br/></strong> </h1>
+  </div>
+{% endif %}
+<div class="div-block-129">
+  <h3 class="sub-section"><strong>Why choose boss hardware?</strong></h3>
+</div>
+<div class="div-block-126">
+  <div class="div-block-114">
+     <div class="usp-wrap"><img src="{% static 'img/5fc2b28e7c628324c2b7ea31_white%20tick%20box.png' %}" loading="lazy" alt="" class="usp-icon"/><a href="#" class="usp-text">HIGHEST QUALITY STANDARDS <br/>-PRODUCTS YOU CAN RELY ON</a></div>
+     <div class="usp-wrap"><img src="{% static 'img/5fc2b28e7c628324c2b7ea31_white%20tick%20box.png' %}" loading="lazy" alt="" class="usp-icon"/><a href="#" class="usp-text">HIGHEST QUALITY STANDARDS <br/>-PRODUCTS YOU CAN RELY ON</a></div>
+     <div class="usp-wrap"><img src="{% static 'img/5fc2b28e7c628324c2b7ea31_white%20tick%20box.png' %}" loading="lazy" alt="" class="usp-icon"/><a href="#" class="usp-text">HIGHEST QUALITY STANDARDS <br/>-PRODUCTS YOU CAN RELY ON</a></div>
+     <div class="usp-wrap"><img src="{% static 'img/5fc2b28e7c628324c2b7ea31_white%20tick%20box.png' %}" loading="lazy" alt="" class="usp-icon"/><a href="#" class="usp-text">HIGHEST QUALITY STANDARDS <br/>-PRODUCTS YOU CAN RELY ON</a></div>
+  </div>
+</div>
+<div class="div-block-127">
+  <h3 class="sub-section"><strong><br/>boss ordering app<br/><br/></strong></h3>
+</div>
+<div class="divmobileapp">
+  <div class="divmobil2">
+     <div class="mobilwarp">
+        <a href="#" class="usp-text">OUR APP HAS BEEN BUILT TO MAKE IT <br/>EASIER &amp; QUICKER TO ORDER<br/><br/>OUR MISSION INVOLVES ‘GIVING<br/>BACK’ TO OUR CUSTOMERS,<br/>THROUGH SIGNIFICANTLY IMPROVING <br/>EFFICIENCIES IN ORDERING<br/><br/>ORDERING GOODS WHICH ALLOWS<br/>YOU TO SPEND MORE TIME ON THE<br/>JOB OR WITH YOUR FAMILY<br/><br/>YOU CAN ALSO MAKE YOUR WHOLE<br/>ACCOUNT VIA THE APP...MAKES<br/>JOB COSTING A BREEZE!<br/><br/>Available on the app store</a>
+        <div class="section"></div>
+     </div>
+     <div class="div-block-120"></div>
+  </div>
+</div> 
+<div class="div-block-123">
+  <img src="https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28e7c628312fbb7ea30_PHONE%20BLANK%20BOSS%20COLOUR%20CASE.png{% static 'img/5fc2b28e7c628312fbb7ea30_PHONE%20BLANK%20BOSS%20COLOUR%20CASE.png' %}" loading="lazy" width="296" sizes="(max-width: 479px) 5px, (max-width: 991px) 33vw, 296px" srcset="https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28e7c628312fbb7ea30_PHONE%20BLANK%20BOSS%20COLOUR%20CASE-p-500.png 500w, https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28e7c628312fbb7ea30_PHONE%20BLANK%20BOSS%20COLOUR%20CASE.png 767w" alt="" class="image-17"/>
+  <div class="shopcart">
+     <img src="https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28d9c0c301414246f3b_cart-148964.png" loading="lazy" srcset="https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28d9c0c301414246f3b_cart-148964-p-500.png 500w, https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28d9c0c301414246f3b_cart-148964-p-800.png 800w, https://uploads-ssl.webflow.com/5fc2aefa7c62838823b7d891/5fc2b28d9c0c301414246f3b_cart-148964.png 1920w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 63px, 10vw" alt="" class="image-19"/>
+     <h1 class="heading-8">BOSS</h1>
+     <div class="text-block-11"><strong class="bold-text-2">HARDWARE &amp; FASTENERS</strong></div>
+     <div class="div-block-128"></div>
+  </div>
+</div>  
+ <div class="div-block-121">
+  <div class="w-row">
+     <div class="w-col w-col-6"><img src="{% static 'img/5fc61bde58315d0f19787faa_Capture.PNG' %}" loading="lazy" width="223" alt="" class="image-20"/></div>
+     <div class="w-col w-col-6"><img src="{% static 'img/5fc61d37139bfe4dc2d498c0_Capture2.PNG' %}" loading="lazy" width="224" alt="" class="gplay"/></div>
+  </div>
+</div>
+
+
+{% endblock content %}
