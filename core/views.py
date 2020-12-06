@@ -229,7 +229,7 @@ class CheckoutView(View):
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 9
+    paginate_by = 8
     template_name = "home.html"
 
 def search(request):

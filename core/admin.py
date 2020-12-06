@@ -71,6 +71,7 @@ class ItemAdmin(admin.ModelAdmin):
         'title',
         
     ]
+    prepopulated_fields = {"slug": ("title",)}
 class ArticlesAdmin(admin.ModelAdmin):
     list_display = ['article_title',
                    
@@ -86,7 +87,8 @@ class ArticlesAdmin(admin.ModelAdmin):
     search_fields = [
         'article_title',
         
-    ]    
+    ]   
+    prepopulated_fields = {"article_slug": ("article_title",)} 
 class CouponAdmin(admin.ModelAdmin):
     list_display = ['code',
                     'amount'

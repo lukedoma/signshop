@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'django_countries',
-    'ckeditor',
+    # 'ckeditor',
     'ckeditor_uploader',
     'core'
 ]
