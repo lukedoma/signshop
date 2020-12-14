@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='articles',
             name='article_body',
-            field=ckeditor.fields.RichTextField(blank=True, default='', null=True),
+           
+            field=models.CharField( max_length=202),
         ),
     ]
